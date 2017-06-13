@@ -146,8 +146,8 @@ function dragula (initialContainers, options) {
     _offsetX = getCoord('pageX', e) - offset.left;
     _offsetY = getCoord('pageY', e) - offset.top;
 
-    classes.add(_copy || _item, 'gu-transit');
     renderMirrorImage();
+    classes.add(_copy || _item, 'gu-transit');
     drag(e);
   }
 
