@@ -622,19 +622,10 @@ function getCoord (coord, e) {
 }
 
 function getScrollContainer(node) {
-  if (node === null) { return null; }
-  // NOTE: Manually calculating height because IE's `clientHeight` isn't always
-  // reliable.
-  var nodeOuterHeight = parseFloat(window.getComputedStyle(node).getPropertyValue('height')) +
-    parseFloat(window.getComputedStyle(node).getPropertyValue('padding-top')) +
-    parseFloat(window.getComputedStyle(node).getPropertyValue('padding-bottom'));
-  if (node.scrollHeight > Math.ceil(nodeOuterHeight)) { return node; }
-
   var REGEX_BODY_HTML = new RegExp('(body|html)', 'i');
+  if (!node || REGEX_BODY_HTML.test(node.parentNode.tagName)) { return null; }
 
-  if (!REGEX_BODY_HTML.test(node.parentNode.tagName)) { return getScrollContainer(node.parentNode); }
-
-  return null;
+  return (node.classList.contains('scrollable')) ? node : getScrollContainer(node.parentNode);
 }
 
 function startAutoScrolling(node, amount, direction) {
